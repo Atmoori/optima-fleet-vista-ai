@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/sonner";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Header() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -19,24 +20,28 @@ export function Header() {
       title: "Maintenance Alert",
       message: "Vehicle DXB-4872 requires immediate maintenance",
       time: "10 minutes ago",
-      read: false
+      read: false,
+      link: "/maintenance"
     },
     {
       id: 2,
       title: "Route Optimization",
       message: "New route calculated for Vehicle DXB-3241",
       time: "1 hour ago",
-      read: false
+      read: false,
+      link: "/routes"
     },
     {
       id: 3,
       title: "Driver Safety Alert",
       message: "Harsh braking detected for driver Ahmed K.",
       time: "3 hours ago",
-      read: false
+      read: false,
+      link: "/safety"
     }
   ]);
   const [showNotifications, setShowNotifications] = useState(false);
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     const newMode = !isDarkMode;
@@ -52,6 +57,25 @@ export function Header() {
   const dismissNotification = (id: number) => {
     setNotifications(notifications.filter(notification => notification.id !== id));
     toast.success("Notification dismissed");
+  };
+
+  const handleNotificationClick = (notification: any) => {
+    // Mark this notification as read
+    setNotifications(notifications.map(n => 
+      n.id === notification.id ? { ...n, read: true } : n
+    ));
+    
+    // Close notification panel
+    setShowNotifications(false);
+    
+    // Navigate to the relevant page
+    navigate(notification.link);
+  };
+
+  const viewAllNotifications = () => {
+    setShowNotifications(false);
+    navigate("/compliance"); // Assuming compliance page could show all notifications
+    toast.info("Viewing all notifications");
   };
 
   // Count unread notifications
@@ -145,7 +169,8 @@ export function Header() {
                     notifications.map((notification) => (
                       <div 
                         key={notification.id} 
-                        className={`p-3 border-b flex items-start justify-between ${!notification.read ? 'bg-muted/50' : ''}`}
+                        className={`p-3 border-b flex items-start justify-between ${!notification.read ? 'bg-muted/50' : ''} cursor-pointer`}
+                        onClick={() => handleNotificationClick(notification)}
                       >
                         <div className="flex-1 pr-2">
                           <div className="flex items-center gap-2">
@@ -161,7 +186,10 @@ export function Header() {
                           variant="ghost" 
                           size="icon" 
                           className="h-6 w-6 mt-1" 
-                          onClick={() => dismissNotification(notification.id)}
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent triggering the parent click
+                            dismissNotification(notification.id);
+                          }}
                         >
                           <X className="h-3 w-3" />
                         </Button>
@@ -176,7 +204,12 @@ export function Header() {
                 
                 {notifications.length > 0 && (
                   <div className="p-2 border-t text-center">
-                    <Button variant="ghost" size="sm" className="w-full text-xs">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="w-full text-xs"
+                      onClick={viewAllNotifications}
+                    >
                       View all notifications
                     </Button>
                   </div>
