@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'sans': ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,7 +64,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                // UAE-inspired colors
+                'sand-gold': '#D4A017',
+                'deep-blue': '#003087',
+                'neon-blue': '#00A1E4',
+                'success': '#22C55E',
+                'warning': '#F97316',
+                'danger': '#EF4444',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -70,26 +80,80 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
-				}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+                'pulse-glow': {
+                    '0%, 100%': { 
+                        boxShadow: '0 0 5px 0px rgba(0, 161, 228, 0.7)' 
+                    },
+                    '50%': { 
+                        boxShadow: '0 0 20px 5px rgba(0, 161, 228, 0.9)' 
+                    },
+                },
+                'fade-in': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateY(10px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                },
+                'scale-in': {
+                    '0%': {
+                        transform: 'scale(0.95)',
+                        opacity: '0'
+                    },
+                    '100%': {
+                        transform: 'scale(1)',
+                        opacity: '1'
+                    }
+                },
+                'slide-in-right': {
+                    '0%': { transform: 'translateX(100%)' },
+                    '100%': { transform: 'translateX(0)' }
+                },
+                'spinner': {
+                    '0%': { transform: 'rotate(0deg)' },
+                    '100%': { transform: 'rotate(360deg)' }
+                },
+                'bounce-soft': {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-5px)' }
+                },
+                'route-trace': {
+                    '0%': { strokeDashoffset: '1000' },
+                    '100%': { strokeDashoffset: '0' }
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+                'pulse-glow': 'pulse-glow 2s infinite',
+                'fade-in': 'fade-in 0.4s ease-out',
+                'scale-in': 'scale-in 0.3s ease-out',
+                'slide-in-right': 'slide-in-right 0.4s ease-out',
+                'spinner': 'spinner 1.5s linear infinite',
+                'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
+                'route-trace': 'route-trace 2s ease-in-out forwards',
+			},
+            backgroundImage: {
+                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                'uae-gradient': 'linear-gradient(135deg, #003087 0%, #000000 100%)',
+                'card-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                'gold-gradient': 'linear-gradient(135deg, #D4A017 0%, #FFC700 100%)',
+                'blue-gradient': 'linear-gradient(135deg, #003087 0%, #00A1E4 100%)'
+            },
+            boxShadow: {
+                'glow-blue': '0 0 15px 2px rgba(0, 161, 228, 0.6)',
+                'glow-gold': '0 0 15px 2px rgba(212, 160, 23, 0.6)',
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
