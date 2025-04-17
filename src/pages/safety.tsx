@@ -1,7 +1,6 @@
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, AlertTriangle, TrendingDown, Award } from "lucide-react";
+import { Shield, AlertTriangle, TrendingDown, Award, UserRound } from "lucide-react";
 
 const DriverSafety = () => {
   return (
@@ -71,7 +70,7 @@ const DriverSafety = () => {
         
         <div className="p-5">
           <div className="grid grid-cols-6 gap-2 mb-4">
-            <div className="text-right text-xs text-muted-foreground">Driver ID</div>
+            <div className="text-right text-xs text-muted-foreground">Driver</div>
             <div className="text-center text-xs text-muted-foreground">Speeding</div>
             <div className="text-center text-xs text-muted-foreground">Harsh Braking</div>
             <div className="text-center text-xs text-muted-foreground">Harsh Accel.</div>
@@ -79,7 +78,6 @@ const DriverSafety = () => {
             <div className="text-center text-xs text-muted-foreground">Score</div>
           </div>
           
-          {/* Driver rows with behavior heatmap cells */}
           {[
             { id: "D001", name: "Ahmed K.", speeding: 1, braking: 2, acceleration: 1, distraction: 1, score: 92 },
             { id: "D002", name: "Fatima S.", speeding: 1, braking: 1, acceleration: 1, distraction: 0, score: 97 },
@@ -91,8 +89,13 @@ const DriverSafety = () => {
           ].map((driver) => (
             <div key={driver.id} className="grid grid-cols-6 gap-2 py-2 border-b hover:bg-muted/50 cursor-pointer">
               <div className="text-right font-medium flex items-center justify-end gap-2">
-                <span>{driver.id}</span>
-                <span className="text-sm text-muted-foreground">{driver.name}</span>
+                <div className="flex items-center gap-2">
+                  <UserRound className="h-5 w-5 text-muted-foreground" />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-deep-blue">{driver.id}</span>
+                    <span className="text-xs text-muted-foreground">{driver.name}</span>
+                  </div>
+                </div>
               </div>
               
               <HeatmapCell value={driver.speeding} />
